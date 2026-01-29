@@ -1,10 +1,17 @@
 import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
+import mongoose, { mongo } from 'mongoose';
 
 dotenv.config();
 
 const app = express();
+mongoose.connect(process.env.MONGO_URL).then(()=>{
+  console.log("Connected to MongoDB");
+})
+.catch((err)=>{
+  console.log("Error connecting to MongoDB:", err);
+});
 
 // Middleware to handel cors
 app.use(cors({
