@@ -1,0 +1,21 @@
+import express from 'express';
+import cors from 'cors';
+import dotenv from 'dotenv';
+
+dotenv.config();
+
+const app = express();
+
+// Middleware to handel cors
+app.use(cors({
+  origin: process.env.CLIENT_URL || 'http://localhost:5174',
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}))
+
+// Middleware to handel JSON object in request body
+app.use(express.json());
+
+app.listen(3000, () => {
+  console.log('Server is running on port 3000!');
+});
