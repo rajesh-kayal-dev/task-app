@@ -1,7 +1,9 @@
 import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
-import mongoose, { mongo } from 'mongoose';
+import mongoose from 'mongoose';
+
+import authRoutes from './routes/auth.route.js';
 
 dotenv.config();
 
@@ -23,6 +25,8 @@ app.use(cors({
 // Middleware to handel JSON object in request body
 app.use(express.json());
 
-app.listen(3000, () => {
+app.listen(process.env.PORT || 4000, () => {
   console.log('Server is running on port 3000!');
 });
+
+app.use('/api/auth', authRoutes);
