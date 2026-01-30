@@ -3,6 +3,7 @@ import bcryptjs from "bcryptjs";
 import dotenv from "dotenv";
 import { errorHandler } from "../utils/error.js";
 import jwt from "jsonwebtoken";
+import e from "express";
 
 dotenv.config();
 
@@ -117,5 +118,20 @@ export const updateProfile = async (req, res, next) => {
     } catch (error) {
         next(error);
 
+    }
+}
+
+export const uploadedImage = async (req, res, next) => {
+    try {
+        if (!req.file) {
+            return next(errorHandler(400, "No file uploaded"));
+        }
+
+        const imageUrl = `${req.protocol}://${req.get('host')}/uploads/${req.file.filename}`;
+
+        res.status(200).json({ imageUrl });
+        
+    } catch (error) {
+        next(error);
     }
 }
